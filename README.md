@@ -1,6 +1,6 @@
 # [Work In Progress] Webflow - TailwindCSS Adapter
 
-Utility adapter to develop websites/apps in [Webflow](https://webflow.com/dashboard?r=1) using [TailwindCSS](https://tailwindcss.com/) utility approach.
+Utility adapter to develop websites/apps in [Webflow](https://webflow.com/) using [TailwindCSS](https://tailwindcss.com/) utility approach.
 
 ## Current approach
 
