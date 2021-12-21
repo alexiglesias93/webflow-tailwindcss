@@ -12,5 +12,5 @@ import { writeFileSync } from 'fs';
     .replaceAll('\\:', '-')
     .replaceAll('\\/', '-');
 
-  writeFileSync('dist/webflow.css', webflowCSS);
+  writeFileSync('webflow.css', webflowCSS);
 })();
