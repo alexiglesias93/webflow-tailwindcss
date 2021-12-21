@@ -1,10 +1,10 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 import { writeFileSync } from 'fs';
-import { BREAKPOINTS } from '../utils/breakpoints.js';
+import tailwindConfig from '../tailwind.config.cjs';
 
-const base = 'https://tailwindcss.com';
-const urls = [
+const BASE_URL = 'https://tailwindcss.com';
+const DOCS_URLS = [
   '/docs/aspect-ratio',
   '/docs/columns',
   '/docs/break-after',
@@ -165,36 +165,36 @@ const urls = [
  * Fetches all CSS Classes from the docs.
  * Generates a `classes.json` file.
  */
-const fetchAllClasses = async () => {
+(async () => {
   const classes = [];
 
-  for (const url of urls) {
-    console.log(`Scraping ${url}`);
+  await Promise.all(
+    DOCS_URLS.map(async (url) => {
+      console.log(`Scraping ${url}`);
 
-    try {
-      const response = await fetch(`${base}${url}`);
-      const data = await response.text();
+      try {
+        const response = await fetch(`${BASE_URL}${url}`);
+        const data = await response.text();
 
-      const dom = new JSDOM(data);
-      const rows = dom.window.document.querySelectorAll(
-        'tbody tr td:first-child'
-      );
+        const dom = new JSDOM(data);
+        const rows = dom.window.document.querySelectorAll(
+          'tbody tr td:first-child'
+        );
 
-      for (const { textContent } of rows) {
-        const [className] = textContent.split(' ');
+        for (const { textContent } of rows) {
+          const [className] = textContent.split(' ');
 
-        classes.push(className);
+          classes.push(className);
 
-        for (const breakpoint of BREAKPOINTS) {
-          classes.push(`${breakpoint}:${className}`);
+          for (const breakpoint in tailwindConfig.theme.screens) {
+            classes.push(`${breakpoint}:${className}`);
+          }
         }
+      } catch (error) {
+        console.log(`Scraping ${url} failed: `, error);
       }
-    } catch (error) {
-      console.log(`Scraping ${url} failed: `, error);
-    }
-  }
+    })
+  );
 
   writeFileSync('./scraping/classes.txt', classes.join(' '));
-};
-
-fetchAllClasses();
+})();
