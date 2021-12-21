@@ -5,7 +5,8 @@ Utility adapter to develop websites/apps in [Webflow](https://webflow.com/) usin
 ## Current approach
 
 Currently, this tool only generates a `.css` file containing all TailwindCSS's classes rewritten to Webflow's internal convention.
-This allows importing the file in a project and start using TailwindCSS classes right away:
+
+This allows importing the file in a project using an `HTML Embed` component and start using TailwindCSS classes right away:
 
 ```html
 <link
