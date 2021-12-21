@@ -20,7 +20,7 @@ This allows importing the file in a project using an `HTML Embed` component and 
 
 This current approach is intended only for projects that are meant to be exported and lately converted into an app using a framework like Svelte, React or Vue.
 
-**Do not use it in Webflow live sites!** The `.css` file weights roughly `3.5MB`.
+**Do not use it in Webflow live sites!** The `.css` file weights roughly `3.5 MB`.
 
 ## Roadmap
 
